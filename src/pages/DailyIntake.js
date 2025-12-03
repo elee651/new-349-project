@@ -9,7 +9,7 @@ export default function DailyIntake() {
   );
 
   return (
-    <div>
+    <div className ="text-center">
       <h2>My Daily Calorie Intake</h2>
 
       {!selectedFoods.length && <p>No foods added yet.</p>}
