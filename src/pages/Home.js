@@ -50,6 +50,9 @@ function Home() {
 
   return (
     <div>
+
+      <h1>Food Recipe Search</h1>
+      
       <SearchBar onSearch={handleSearch} />
 
       {loading && <p>Loading recipes...</p>}

@@ -1,10 +1,11 @@
 import { useLocation, useNavigate } from "react-router-dom";
+import { useCalories } from "../components/CalorieContext";
 
 function RecipeDetails() {
   const location = useLocation();
   const navigate = useNavigate();
+  const { addFood } = useCalories();  
 
-  // recipe data was passed from RecipeCard via Link state
   const recipe = location.state?.recipe;
 
   if (!recipe) {
@@ -60,6 +61,13 @@ function RecipeDetails() {
                 <br />
                 <strong>Calories:</strong> {Math.round(calories)}
               </p>
+
+              <button
+                className="btn btn-success mb-3"
+                onClick={() => addFood({ label, calories })}
+              >
+                 Add to My Intake
+              </button>
 
               {dietLabels && dietLabels.length > 0 && (
                 <p>

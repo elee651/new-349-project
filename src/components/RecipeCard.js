@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
+import { useCalories } from "../components/CalorieContext";
 
 function RecipeCard({ recipe }) {
   const { label, image, calories, source } = recipe;
+  const { addFood } = useCalories();  
 
   return (
     <div className="card h-100">
@@ -20,6 +22,14 @@ function RecipeCard({ recipe }) {
           <br />
           <strong>Calories:</strong> {Math.round(calories)}
         </p>
+
+        <button
+          className="btn btn-success mb-2"
+          onClick={() => addFood({ label, calories })}
+        >
+           Add to My Intake
+        </button>
+
         <Link
           to="/recipe"
           state={{ recipe }}
