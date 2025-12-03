@@ -9,25 +9,42 @@ export default function DailyIntake() {
   );
 
   return (
-    <div className ="text-center">
-      <h2>My Daily Calorie Intake</h2>
+    <div className="container-narrow">
+      <section className="hero">
+        <h1 className="hero-title">My Daily Calorie Intake</h1>
+        <p className="hero-sub">Track foods you’ve added from recipes.</p>
+      </section>
 
-      {!selectedFoods.length && <p>No foods added yet.</p>}
-
-      {selectedFoods.map((food, index) => (
-        <div key={index} className="card p-2 mb-2">
-          <strong>{food.label}</strong> — {Math.round(food.calories)} cal
-          <button
-            className="btn btn-danger btn-sm float-end"
-            onClick={() => removeFood(food.label)}
-          >
-            ✖ remove
-          </button>
+      {!selectedFoods.length && (
+        <div className="search-card">
+          <p className="muted mb-0">No foods added yet.</p>
         </div>
-      ))}
+      )}
+
+      <div className="grid" style={{ gap: 12 }}>
+        {selectedFoods.map((food, index) => (
+          <div key={index} className="recipe-card p-3">
+            <div className="d-flex justify-content-between align-items-center">
+              <div>
+                <strong className="recipe-title">{food.label}</strong>
+                <div className="muted">{Math.round(food.calories)} cal</div>
+              </div>
+              <button
+                className="btn btn-danger btn-sm btn-glow"
+                onClick={() => removeFood(food.label)}
+              >
+                ✖ remove
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
 
       {selectedFoods.length > 0 && (
-        <h4 className="mt-4">TOTAL: {totalCalories} calories</h4>
+        <div className="recipe-card p-3 mt-3 d-flex justify-content-between align-items-center">
+          <strong className="recipe-title">Total</strong>
+          <span>{totalCalories} calories</span>
+        </div>
       )}
     </div>
   );
