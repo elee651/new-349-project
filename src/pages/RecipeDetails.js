@@ -31,68 +31,84 @@ function RecipeDetails() {
     healthLabels,
     url,
     source,
+    yield: servings,
+    totalTime,
+    cuisineType,
+    mealType,
+    dishType,
   } = recipe;
 
+  const displayIngredients = Array.isArray(recipe.ingredients) && recipe.ingredients.length
+    ? recipe.ingredients.map((i) => i.text)
+    : ingredientLines;
+
+  const chips = [
+    servings ? `${servings} servings` : null,
+    totalTime ? `${totalTime} min` : null,
+    cuisineType?.length ? `Cuisine: ${cuisineType.join(", ")}` : null,
+    mealType?.length ? `Meal: ${mealType.join(", ")}` : null,
+    dishType?.length ? `Dish: ${dishType.join(", ")}` : null,
+  ].filter(Boolean);
+
   return (
-    <div>
+    <div className="container-wide">
       <button
-        className="btn btn-secondary mb-3"
+        className="btn btn-outline-light mb-3"
         onClick={() => navigate(-1)}
       >
         ← Back
       </button>
 
-      <div className="card">
+      <div className="recipe-detail-card">
         <div className="row g-0">
           {image && (
-            <div className="col-md-4">
-              <img
-                src={image}
-                alt={label}
-                className="img-fluid rounded-start"
-              />
+            <div className="col-md-5">
+              <img src={image} alt={label} className="img-fluid recipe-img-lg" />
             </div>
           )}
-          <div className={image ? "col-md-8" : "col-12"}>
+          <div className={image ? "col-md-7" : "col-12"}>
             <div className="card-body">
-              <h3 className="card-title">{label}</h3>
-              <p className="card-text">
-                <strong>Source:</strong> {source}
-                <br />
-                <strong>Calories:</strong> {Math.round(calories)}
-              </p>
+              <h3 className="card-title recipe-title">{label}</h3>
+              <p className="card-text muted">Source: {source}<br />Calories: {Math.round(calories)}</p>
+
+              {chips.length > 0 && (
+                <div className="chips">
+                  {chips.map((c, idx) => (
+                    <span key={idx} className="chip">{c}</span>
+                  ))}
+                </div>
+              )}
 
               <button
-                className="btn btn-success mb-3"
+                className="btn btn-success mb-3 btn-glow btn-wide"
                 onClick={() => addFood({ label, calories })}
               >
                  Add to My Intake
               </button>
 
               {dietLabels && dietLabels.length > 0 && (
-                <p>
-                  <strong>Diet:</strong> {dietLabels.join(", ")}
-                </p>
+                <p className="muted">Diet: {dietLabels.join(", ")}</p>
               )}
 
               {healthLabels && healthLabels.length > 0 && (
-                <p>
-                  <strong>Health:</strong> {healthLabels.join(", ")}
-                </p>
+                <p className="muted">Health: {healthLabels.join(", ")}</p>
               )}
 
-              <h5>Ingredients</h5>
+              <h5 className="mt-3">Ingredients</h5>
               <ul>
-                {ingredientLines.map((line, index) => (
+                {displayIngredients.map((line, index) => (
                   <li key={index}>{line}</li>
                 ))}
               </ul>
+
+              <h5 className="mt-3">Instructions</h5>
+              <p className="muted">Full step-by-step instructions are available from the source below.</p>
 
               <a
                 href={url}
                 target="_blank"
                 rel="noreferrer"
-                className="btn btn-primary mt-3"
+                className="btn btn-primary mt-3 btn-glow btn-wide"
               >
                 Open full recipe (instructions)
               </a>

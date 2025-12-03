@@ -11,18 +11,15 @@ function SearchBar({ onSearch }) {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="d-flex mb-4 gap-2 flex-column flex-md-row"
-    >
+    <form onSubmit={handleSubmit} className="search-card d-flex flex-column flex-md-row gap-2 mb-4">
       <input
         type="text"
-        className="form-control"
+        className="form-control search-input"
         placeholder="Search recipes by ingredient (e.g., chicken, tofu)"
         value={inputValue}
         onChange={(event) => setInputValue(event.target.value)}
       />
-      <button type="submit" className="btn btn-primary">
+      <button type="submit" className="btn btn-primary search-btn btn-glow">
         Search
       </button>
     </form>

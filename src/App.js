@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import RecipeDetails from "./pages/RecipeDetails";
 import DailyIntake from "./pages/DailyIntake";
 import { CalorieProvider, useCalories } from "./components/CalorieContext";
+import "./index.css";
 
 function Header() {
   const { selectedFoods } = useCalories();
@@ -13,17 +14,20 @@ function Header() {
   );
 
   return (
-    <header className="d-flex flex-column flex-md-row align-items-center mb-4 border-bottom pb-3">
-      <Link to="/" className="text-decoration-none">
-        <span className="fs-3 fw-bold text-primary">EasyEats</span>
-      </Link>
+    <header className="app-header py-3">
+      <div className="container-narrow d-flex flex-column flex-md-row align-items-center justify-content-between">
+        <Link to="/" className="brand">
+          <span className="brand-badge" />
+          <span className="fs-4 fw-bold">EasyEats</span>
+        </Link>
 
-      <Link
-        to="/intake"
-        className="ms-md-3 mt-2 mt-md-0 btn btn-warning fw-bold"
-      >
-        My Intake ({totalCalories} cal)
-      </Link>
+        <nav className="d-flex align-items-center gap-2 mt-3 mt-md-0">
+          <Link to="/" className="btn btn-outline-light">Search</Link>
+          <Link to="/intake" className="btn btn-warning fw-bold">
+            My Intake ({totalCalories} cal)
+          </Link>
+        </nav>
+      </div>
     </header>
   );
 }
@@ -31,19 +35,26 @@ function Header() {
 function App() {
   return (
     <CalorieProvider>
-      <Router>
-        <div className="container py-4">
-
+      <div className="app-shell">
+        <Router>
           <Header />
 
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/recipe" element={<RecipeDetails />} />
-            <Route path="/intake" element={<DailyIntake />} />
-          </Routes>
+          <main className="py-4">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/recipe" element={<RecipeDetails />} />
+              <Route path="/intake" element={<DailyIntake />} />
+            </Routes>
+          </main>
 
-        </div>
-      </Router>
+          <footer className="app-footer py-3">
+            <div className="container-narrow d-flex justify-content-between">
+              <span>© {new Date().getFullYear()} EasyEats</span>
+              <span className="muted">Made with React</span>
+            </div>
+          </footer>
+        </Router>
+      </div>
     </CalorieProvider>
   );
 }

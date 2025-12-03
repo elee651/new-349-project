@@ -10,11 +10,9 @@ function RecipeList({ recipes, query }) {
   }
 
   return (
-    <div className="row">
+    <div className="grid grid-3">
       {recipes.map((item, index) => (
-        <div className="col-sm-6 col-md-4 mb-4" key={index}>
-          <RecipeCard recipe={item.recipe} />
-        </div>
+        <RecipeCard recipe={item.recipe} key={index} />
       ))}
     </div>
   );

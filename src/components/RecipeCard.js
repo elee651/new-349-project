@@ -6,25 +6,25 @@ function RecipeCard({ recipe }) {
   const { addFood } = useCalories();  
 
   return (
-    <div className="card h-100">
+    <div className="recipe-card h-100">
       {image && (
         <img
           src={image}
-          className="card-img-top"
+          className="card-img-top recipe-img"
           alt={label}
-          style={{ objectFit: "cover", height: "200px" }}
+          style={{ objectFit: "cover" }}
         />
       )}
       <div className="card-body d-flex flex-column">
-        <h5 className="card-title">{label}</h5>
-        <p className="card-text">
-          <strong>Source:</strong> {source}
+        <h5 className="card-title recipe-title">{label}</h5>
+        <p className="card-text muted">
+          Source: {source}
           <br />
-          <strong>Calories:</strong> {Math.round(calories)}
+          Calories: {Math.round(calories)}
         </p>
 
         <button
-          className="btn btn-success mb-2"
+          className="btn btn-success mb-2 btn-wide btn-glow"
           onClick={() => addFood({ label, calories })}
         >
            Add to My Intake
@@ -33,7 +33,7 @@ function RecipeCard({ recipe }) {
         <Link
           to="/recipe"
           state={{ recipe }}
-          className="btn btn-outline-primary mt-auto"
+          className="btn btn-outline-primary mt-auto btn-wide btn-glow"
         >
           View details
         </Link>
